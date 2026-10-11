@@ -71,16 +71,16 @@
 :root[data-theme="dark"] .theme-toggle .theme-moon{display:none}
 
 /* Center the wordmark on the whole bar, independently of side controls. */
-.floating-header{grid-template-columns:28px minmax(0,1fr) 112px}
-.header-wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:calc(100% - 256px)}
+.floating-header{grid-template-columns:34px minmax(0,1fr) 128px}
+.header-wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:calc(100% - 288px)}
 .header-actions{grid-column:3}
 @media(max-width:767px){
- .floating-header{grid-template-columns:64px minmax(0,1fr) 64px;padding:5px 8px;gap:6px}
+ .floating-header{grid-template-columns:72px minmax(0,1fr) 72px;padding:6px 10px;gap:6px}
  .header-wordmark{position:static;transform:none;max-width:none}
  .header-actions>a[href="#contact"]{display:none}
- .header-icon{width:32px;padding:6px}
- .header-name{font-size:clamp(16px,4.8vw,23px)}
- .header-subtitle{font-size:clamp(7px,2vw,8px)}
+ .header-icon{width:36px;padding:7px}
+ .header-name{font-size:clamp(18px,5.3vw,26px)}
+ .header-subtitle{font-size:clamp(8px,2.25vw,9px)}
  .hero-intro .intro-bottom{gap:18px;margin-top:25px;max-width:100%;width:100%;align-items:flex-start}
  .hero-intro .discipline-stickers{gap:10px;font-size:21px;max-width:none;width:100%;padding:8px 0}
  .discipline-sticker{width:calc((100% - 20px)/3);height:94px}

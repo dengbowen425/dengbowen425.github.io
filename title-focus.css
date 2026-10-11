@@ -1,5 +1,5 @@
 /* The kinetic title is the only visual event in the opening composition. */
-.hero{min-height:calc(100svh - 76px);padding-top:clamp(28px,3vw,48px);padding-bottom:40px;display:flex;flex-direction:column}
+.hero{min-height:calc(100svh - 86px);padding-top:clamp(28px,3vw,48px);padding-bottom:40px;display:flex;flex-direction:column}
 .hero h1{height:clamp(320px,33vw,560px);flex:1;min-height:clamp(320px,33vw,560px);margin-bottom:18px}
 .title-actions{flex:none;margin:0 0 26px;padding:0}
 .hero-bottom{display:block;min-height:0}
