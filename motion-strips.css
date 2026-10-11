@@ -1,0 +1,57 @@
+/* Both moving bands use Bowen's original artwork. */
+.discipline-strip{overflow:hidden;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0 14px}
+.discipline-strip-track{display:flex;width:max-content;animation:discipline-strip-scroll 26s linear infinite;will-change:transform;mix-blend-mode:multiply}
+.discipline-strip-tile{display:block;flex:none;padding-right:48px}
+.discipline-strip-tile img{display:block;width:auto;height:clamp(48px,4.7vw,72px);max-width:none}
+.discipline-strip:hover .discipline-strip-track{animation-play-state:paused}
+@keyframes discipline-strip-scroll{to{transform:translate3d(-50%,0,0)}}
+.identity small{font-size:12px}
+.hero-intro .intro-disciplines{font-size:13px;max-width:220px}
+.title-actions button{font-size:13px}
+.deck-controls{font-size:12px}
+.deck-status small,.deck-controls [data-deck-counter],.deck-controls [data-deck-toggle]{font-size:12px}
+.deck-controls [data-deck-toggle]{width:42px}
+.work-grid[data-filter="all"] .work-card[data-id="festival"]{grid-column:1/-1;display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(26px,4vw,52px);align-items:center}
+.work-grid[data-filter="all"] .work-card[data-id="festival"] .work-visual{aspect-ratio:1.45}
+.work-grid[data-filter="all"] .work-card[data-id="festival"] .work-caption{padding:10px 0}
+.work-grid[data-filter="all"] .work-card[data-id="festival"] .work-excerpt{display:block;margin-top:24px}
+@media(max-width:767px){.discipline-strip{padding:12px 0 10px}.discipline-strip-tile{padding-right:28px}.discipline-strip-tile img{height:42px}.identity small{font-size:10px}.hero-intro .intro-disciplines{font-size:12px;max-width:175px}.title-actions button{font-size:12px}.deck-controls,.deck-status small,.deck-controls [data-deck-counter],.deck-controls [data-deck-toggle]{font-size:11px}.work-grid[data-filter="all"] .work-card[data-id="festival"]{display:block;grid-column:auto}.work-grid[data-filter="all"] .work-card[data-id="festival"] .work-visual{aspect-ratio:1.3}.work-grid[data-filter="all"] .work-card[data-id="festival"] .work-excerpt{display:none}}
+@media(prefers-reduced-motion:reduce){.discipline-strip-track{animation:none;will-change:auto}}
+/* Original white vector letters scatter and spring back in their original board position. */
+.festival-original-segment{position:relative}
+.festival-inplace-motion{position:absolute;left:12%;top:42%;width:40%;height:14.5%;pointer-events:none;visibility:hidden}
+.festival-inplace-motion.is-ready{visibility:visible}
+.festival-motion-art,.festival-inplace-motion svg{display:block;width:100%;height:100%;overflow:hidden}
+.festival-inplace-motion .festival-motion-toggle{position:absolute;right:0;bottom:-24px;pointer-events:auto;color:#bcbcb5;background:transparent;font-size:11px;padding:7px 0;line-height:1.2}
+.festival-inplace-motion .festival-motion-toggle:hover{color:#fff}
+.festival-glyph{transform-box:fill-box;transform-origin:center;animation:festival-scatter 3.8s var(--scatter-delay) cubic-bezier(.22,.8,.27,1) infinite paused;will-change:transform}
+.festival-subline{transform-box:fill-box;transform-origin:center;animation:festival-subline 3.8s infinite paused}
+.festival-inplace-motion.is-playing :is(.festival-glyph,.festival-subline){animation-play-state:running}
+.festival-inplace-motion.is-paused .festival-motion-art{visibility:hidden}
+@keyframes festival-scatter{
+ 0%,17%,77%,100%{transform:translate(0,0) rotate(0deg) scale(1)}
+ 34%,42%{transform:translate(var(--scatter-x),var(--scatter-y)) rotate(var(--scatter-r)) scale(.94)}
+ 64%{transform:translate(0,-2px) rotate(0deg) scale(1.04)}
+ 70%{transform:translate(0,1px) rotate(0deg) scale(.995)}
+}
+@keyframes festival-subline{0%,18%,76%,100%{opacity:1;transform:scale(1)}34%,44%{opacity:.35;transform:scale(.97)}66%{opacity:1;transform:scale(1.025)}}
+@media(max-width:767px){.festival-inplace-motion .festival-motion-toggle{font-size:9px;bottom:-22px;padding:6px 0}}
+@media(prefers-reduced-motion:reduce){.festival-inplace-motion{display:none}}
+
+/* Original diagonal festival band, aligned to the original PDF clip. */
+.festival-band-inplace{position:absolute;left:0;top:60.242965%;width:100%;height:7.06916%;pointer-events:none;visibility:hidden}
+.festival-band-inplace.is-ready{visibility:visible}
+.festival-band-inplace svg{display:block;width:100%;height:100%;overflow:hidden}
+.festival-band-flow{animation:original-band-scroll 14s linear infinite paused;will-change:transform}
+.festival-band-inplace.is-playing .festival-band-flow{animation-play-state:running}
+@keyframes original-band-scroll{to{transform:translateX(-294.369px)}}
+.festival-band-inplace.is-paused .festival-band-flow{animation-play-state:paused}
+.case-art picture{display:block;width:100%}
+.art-zoom{background-size:100% 100%;background-repeat:no-repeat}
+.case-art picture img{width:100%;height:100%;opacity:0;transition:opacity .16s ease}
+.art-zoom.board-ready picture img{opacity:1}
+.case-art .festival-photo-replacement{width:83.8007%;margin-left:8.423%;margin-right:7.7763%}
+.festival-photo-caption{color:#85867e;font-size:clamp(11px,1.15vw,18px);line-height:1.5;text-align:center;margin:0;padding:clamp(20px,3vw,60px) 0 clamp(30px,5vw,90px)}
+.case-art[data-project="festival"],.case-art[data-project="festival"] .original-board,.case-art[data-project="festival"] .art-zoom,.case-art[data-project="festival"] .festival-photo-caption{background-color:#000}
+.case-art[data-project="bein-detail"],.case-art[data-project="bein-detail"] .original-board,.case-art[data-project="bein-detail"] .art-zoom{background-color:#000}
+.case-art[data-project="recore"] .original-board{margin-bottom:0}

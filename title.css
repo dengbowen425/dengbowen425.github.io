@@ -1,0 +1,9 @@
+@font-face{font-family:GothamPortfolio;src:url('assets/gotham-black-portfolio.ttf') format('truetype');font-weight:900;font-display:swap}
+/* The headline owns a generous stage; type and ink move inside its safe edges. */
+.hero h1{height:clamp(330px,35vw,720px);margin:0 0 clamp(22px,2vw,36px);position:relative;animation:none;transform:none;line-height:1;isolation:isolate}
+.hero h1 .title-word{font-family:GothamPortfolio,Archivo,Arial,sans-serif;font-weight:900;font-size:clamp(100px,23vw,440px);letter-spacing:-.075em;position:absolute;left:0;top:50%;transform:translateY(-50%)}
+.hero h1.kinetic-ready .title-word{visibility:hidden}.portfolio-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
+.hero-bottom{position:relative}.hero{padding-top:20px;padding-bottom:48px}
+.title-actions{display:flex;justify-content:flex-end;margin:-18px 0 26px}.title-actions button{background:transparent;font-size:11px;color:var(--muted);padding:7px 0;border-bottom:1px solid var(--line)}.title-actions button:hover{color:var(--ink);border-color:var(--ink)}
+@media(max-width:767px){.hero{padding-top:12px;padding-bottom:40px}.hero h1{height:clamp(320px,95vw,440px);margin:0 0 24px}.hero h1 .title-word{font-size:23vw;left:0}.hero-bottom{gap:24px}}
+@media(prefers-reduced-motion:reduce){.hero h1{height:clamp(150px,20vw,270px);margin-bottom:50px}.hero h1.kinetic-ready .title-word{visibility:visible}.portfolio-canvas,.title-actions{display:none}}

@@ -1,0 +1,18 @@
+/* Larger photographs break the lower hero grid with a wide camera stage. */
+body{background:var(--paper)}body::before{display:none}
+.hero::before{display:block;background-image:url('assets/grain.svg');background-size:180px 180px;opacity:.022;mix-blend-mode:multiply}
+.hero-bottom{grid-template-columns:.82fr 1.18fr;gap:3%;align-items:center;min-height:400px}.hero-intro{position:relative;z-index:3;padding-top:0}.hero-intro .intro-statement{font-size:clamp(30px,3.2vw,48px)}
+.hero-deck{height:clamp(390px,33vw,500px);width:100%;margin-top:-18px;transform:translateX(-5vw);z-index:2}.deck-canvas{inset:-20px -3% 28px}.hero-deck .deck-card{width:clamp(230px,20vw,310px);height:clamp(300px,26vw,390px)}
+.deck-controls{left:15%;right:15%;bottom:0;gap:16px;align-items:center}.deck-status{text-align:center;display:flex;align-items:center;gap:18px}.deck-status small{font-size:10px}.deck-controls [data-deck-toggle]{font-size:10px;width:36px}.deck-controls [data-deck-counter]{font-size:11px;color:var(--ink);font-variant-numeric:tabular-nums}
+.hero-deck .deck-card:nth-of-type(n+4){left:40%;top:25px;transform:rotate(-4deg);opacity:0;pointer-events:none}.hero-deck .deck-card:focus-visible{opacity:1!important;pointer-events:auto!important;z-index:30}
+@media(max-width:1024px){.hero-intro .intro-statement{font-size:31px}.hero-deck{height:420px}.deck-status small{display:none}}
+@media(max-width:767px){.hero-bottom{min-height:0;gap:20px}.hero-intro{padding-top:0}.hero-intro .intro-statement{font-size:clamp(29px,7.8vw,42px)}.hero-deck{height:clamp(320px,88vw,420px);width:calc(100% + 6vw);margin:0 0 0 -3vw;transform:none}.deck-canvas{inset:-8px -2% 30px}.deck-controls{left:10%;right:10%;bottom:0}.deck-status{gap:8px}.hero-deck .deck-card{width:48%;height:clamp(240px,70vw,350px)}.deck-one{left:2%;top:20px}.deck-two{left:28%;top:0}.deck-three{left:52%;top:25px}}
+
+@media(prefers-reduced-motion:reduce){.hero-deck{margin-top:0;transform:none;height:360px}.deck-controls [data-deck-toggle]{display:none}.hero-deck .deck-card{width:35%;height:260px}.hero-intro{padding-top:0}}
+/* Native 3D stage: immediate motion, the same camera, and no texture-loading barrier. */
+.hero-deck.deck-native-ready{transform-style:preserve-3d;perspective-origin:50% 50%;isolation:auto}
+.hero-deck.deck-native-ready .deck-card{left:50%;top:50%;transform-origin:50% 50%;transition:none;animation:none;padding:5px 5px 24px;border:1px solid #e9e7df;border-radius:0;will-change:transform,opacity;box-shadow:0 8px 18px #00000010;z-index:auto}
+.hero-deck.deck-native-ready .deck-card img{object-fit:contain;object-position:center;background:#090909;pointer-events:none}
+.hero-deck.deck-native-ready .deck-card:first-child img{background:var(--paper)}
+.hero-deck.deck-native-ready .deck-card span{font:600 10px/1.1 Arial,sans-serif;left:8px;bottom:8px;white-space:nowrap;max-width:calc(100% - 16px);overflow:hidden;text-overflow:ellipsis}
+.hero-deck.deck-native-ready .deck-card:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
