@@ -1,0 +1,34 @@
+/* The kinetic title is the only visual event in the opening composition. */
+.hero{min-height:calc(100svh - 76px);padding-top:clamp(28px,3vw,48px);padding-bottom:40px;display:flex;flex-direction:column}
+.hero h1{height:clamp(320px,33vw,560px);flex:1;min-height:clamp(320px,33vw,560px);margin-bottom:18px}
+.title-actions{flex:none;margin:0 0 26px;padding:0}
+.hero-bottom{display:block;min-height:0}
+.hero-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:clamp(32px,6vw,96px);width:100%;max-width:none;padding:0}
+.hero-intro .intro-name-art{width:clamp(250px,25vw,360px)}
+.hero-intro .intro-bottom{display:flex;align-items:center;justify-content:space-between;gap:30px;margin:0;padding:0 0 6px;max-width:540px;width:100%;justify-self:end}
+.hero-intro .intro-disciplines{max-width:none;flex:1}
+.hero-intro .intro-link{margin:0;flex:none}
+/* Each source is art-directed to this frame, so no matte or inner margin is needed. */
+.work-grid[data-filter] .work-card[data-id] .work-visual{aspect-ratio:3/2;background:transparent}
+.work-grid[data-filter] .work-card[data-id] .work-visual img{display:block;width:100%;height:100%;padding:0;object-fit:cover;object-position:center;background:transparent}
+@media(max-width:1024px){
+ .hero-intro{grid-template-columns:.8fr 1.2fr;gap:32px}
+ .hero-intro .intro-bottom{gap:20px}
+ .hero-intro .intro-disciplines{font-size:14px}
+}
+@media(max-width:767px){
+ .hero{min-height:0;padding:24px 20px 40px}
+ .hero h1{height:clamp(185px,58vw,300px);min-height:0;flex:none;margin-bottom:16px}
+ .hero h1 .title-word{white-space:nowrap}
+ .title-actions{margin:0 0 30px}
+ .hero-intro{display:block}
+ .hero-intro .intro-name-art{width:clamp(200px,60vw,270px)}
+ .hero-intro .intro-bottom{margin-top:26px;padding:0;gap:24px}
+ .hero-intro .intro-disciplines{max-width:170px;font-size:14px}
+ .work-grid[data-filter] .work-card[data-id] .work-visual{aspect-ratio:3/2!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero h1{height:clamp(180px,26vw,430px);min-height:clamp(180px,26vw,430px);display:flex;align-items:center}
+ .hero h1 .title-word{font-family:GothamPortfolio,Archivo,Arial,sans-serif;font-size:clamp(100px,19vw,340px);position:static;transform:none}
+ @media(max-width:767px){.hero{min-height:0}.hero h1{height:150px;min-height:150px}.hero h1 .title-word{font-size:19vw}}
+}

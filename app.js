@@ -22,8 +22,8 @@ function renderProjects(filter='all'){
 const selected=projects.filter(p=>filter==='all'||p.category===filter);grid.dataset.filter=filter;
 grid.replaceChildren(...selected.map(p=>{
 const button=document.createElement('button');button.className='work-card';button.dataset.id=p.id;button.dataset.project=p.id;button.setAttribute('aria-label',`查看 ${p.name} 项目详情`);
-const preview=p.id==='recore'?'recore-logos':p.id;
-button.innerHTML=`<div class="work-visual"><img src="assets/preview-${preview}-960.webp?v=20261006fast" srcset="assets/preview-${preview}-480.webp?v=20261006fast 480w, assets/preview-${preview}-960.webp?v=20261006fast 960w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw" decoding="async" alt="${p.name}：${p.id==='recore'?'六组彩色 C 字标视觉实验':p.subtitle}" loading="lazy" width="1400" height="1029"><span class="open-chip" aria-hidden="true">＋</span></div><div class="work-caption"><span class="category-label">${p.label}</span><h3>${p.name}</h3><p>${p.subtitle}</p><p class="work-excerpt">${p.description}</p><span class="project-open">展开作品 <span aria-hidden="true">＋</span></span></div>`;return button;
+const preview=p.id;
+button.innerHTML=`<div class="work-visual"><img src="assets/gallery-${preview}-960.webp?v=20261011covers4" srcset="assets/gallery-${preview}-480.webp?v=20261011covers4 480w, assets/gallery-${preview}-960.webp?v=20261011covers4 960w, assets/gallery-${preview}-1600.webp?v=20261011covers4 1600w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw" decoding="async" alt="${p.name}：${p.id==='recore'?'彩色 C 字标的自然与运动材质实验':p.subtitle}" loading="lazy" width="1600" height="1067"><span class="open-chip" aria-hidden="true">＋</span></div><div class="work-caption"><span class="category-label">${p.label}</span><h3>${p.name}</h3><p>${p.subtitle}</p><p class="work-excerpt">${p.description}</p><span class="project-open">展开作品 <span aria-hidden="true">＋</span></span></div>`;return button;
 }));document.querySelector('.work-count').textContent=`${selected.length} 个项目`;revealPortfolioItems(grid);
 }
 renderProjects();

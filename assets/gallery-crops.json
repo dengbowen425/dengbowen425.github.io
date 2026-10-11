@@ -1,0 +1,112 @@
+[
+  {
+    "project": "bein",
+    "source": "case-hd-08-1.webp",
+    "crop": [
+      0.31,
+      0.1,
+      0.95,
+      0.58
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 183850
+  },
+  {
+    "project": "bein-detail",
+    "source": "case-hd-18-replacement-0.webp",
+    "crop": [
+      0.08,
+      0.18,
+      0.92,
+      0.8
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 238552
+  },
+  {
+    "project": "recore",
+    "source": "recore-cover-logos.webp",
+    "crop": [
+      0.31,
+      0.03,
+      0.69,
+      0.98
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 71498
+  },
+  {
+    "project": "festival",
+    "source": "cover-festival.webp",
+    "crop": [
+      0.025,
+      0.04,
+      0.975,
+      0.96
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 297726
+  },
+  {
+    "project": "retail",
+    "source": "cover-retail.webp",
+    "crop": [
+      0,
+      0.03,
+      1,
+      0.96
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 48142
+  },
+  {
+    "project": "leleorange",
+    "source": "case-hd-15-5.webp",
+    "crop": [
+      0.04,
+      0.375,
+      0.645,
+      0.892
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 88766
+  },
+  {
+    "project": "morelife",
+    "source": "case-hd-20-1.webp",
+    "crop": [
+      0.05,
+      0.02,
+      0.95,
+      0.69
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 251112
+  },
+  {
+    "project": "ospreys",
+    "source": "case-hd-21-0.webp",
+    "crop": [
+      0.21,
+      0.13,
+      0.82,
+      0.445
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 104484
+  },
+  {
+    "project": "campaign",
+    "source": "cover-campaign.svg",
+    "crop": "original embedded artwork",
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 196602
+  },
+  {
+    "project": "medal",
+    "source": "cover-medal.svg",
+    "crop": "original embedded artwork",
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 146260
+  }
+]
