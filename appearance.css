@@ -1,0 +1,106 @@
+/* Three die-cut pieces of the designer's vocabulary; typography remains the hero. */
+.hero-intro .discipline-stickers{
+ display:flex;align-items:center;gap:9px;flex:none;max-width:none;
+ margin:0;padding:6px 2px;font-size:16px;line-height:1.4;
+}
+.discipline-sticker{
+ --sticker-angle:-5deg;--sticker-edge:#a78ae4;
+ position:relative;display:inline-flex;align-items:center;justify-content:center;
+ isolation:isolate;white-space:nowrap;padding:10px 12px;
+ color:#19281b;background:#a3ed88;border:5px solid var(--sticker-edge);
+ border-radius:23px 17px 21px 15px;font-weight:750;letter-spacing:-.04em;
+ box-shadow:0 1px 0 #00000020,0 5px 9px #00000012;
+ transform:rotate(var(--sticker-angle));
+ transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.discipline-sticker::before{
+ content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+ background:url('assets/grain.svg') repeat;background-size:100px;opacity:.12;
+ mix-blend-mode:multiply;
+}
+.discipline-sticker span{position:relative}
+.sticker-product{
+ --sticker-angle:3deg;--sticker-edge:#fffdf3;
+ border-radius:9px 13px 8px 12px;background:#242824;color:#fffdf3;
+}
+.sticker-commerce{
+ --sticker-angle:-3deg;--sticker-edge:#fffdf3;
+ border-radius:21px 9px 23px 11px;background:#c9b9ec;color:#282039;
+}
+.discipline-sticker:hover,.discipline-sticker:focus-visible{
+ transform:translateY(-5px) rotate(0);box-shadow:0 8px 13px #00000018;
+}
+.discipline-sticker:active{transform:translateY(-1px) rotate(0)}
+.hero-intro .intro-bottom{gap:22px;max-width:570px}
+
+/* Manual dark palette: original photographs and artworks are never inverted. */
+:root[data-theme="dark"]{
+ color-scheme:dark;--paper:#151613;--ink:#f1efe6;--muted:#b4b7ac;
+ --line:#41443b;--surface:#242720;--accent-ink:#6cce8c;
+}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"] body::before{mix-blend-mode:screen;opacity:.04}
+:root[data-theme="dark"] .intro-name-art img{filter:invert(1);mix-blend-mode:screen}
+:root[data-theme="dark"] .floating-header{
+ --glass-bg:rgba(63,65,59,.2);color:var(--ink);
+ border-color:rgba(255,255,255,.18);
+ box-shadow:0 5px 20px #0002,inset 0 1px 0 #ffffff0b;
+}
+:root[data-theme="dark"] .floating-header.scrolled{background:rgba(63,65,59,.3);border-color:#ffffff2e}
+:root[data-theme="dark"] .header-subtitle{color:var(--muted)}
+:root[data-theme="dark"] .floating-header .identity-mark .identity-logo{filter:invert(1);mix-blend-mode:screen}
+:root[data-theme="dark"] .header-icon{color:var(--ink)}
+:root[data-theme="dark"] .header-icon img{filter:invert(1)}
+:root[data-theme="dark"] .header-icon:hover,
+:root[data-theme="dark"] .header-menu-toggle[aria-expanded="true"]{background:#ffffff12}
+:root[data-theme="dark"] .floating-header .header-menu{
+ background:rgba(36,39,32,.86);color:var(--ink);border-color:#ffffff24;
+}
+:root[data-theme="dark"] .floating-header .header-menu a:hover{background:#ffffff12}
+:root[data-theme="dark"] .discipline-strip-track{mix-blend-mode:screen}
+:root[data-theme="dark"] .discipline-strip-tile img{filter:invert(1)}
+:root[data-theme="dark"] .tool-icon,
+:root[data-theme="dark"] .tool-icon img{mix-blend-mode:normal}
+:root[data-theme="dark"] .tool-icon img{border-radius:17px}
+:root[data-theme="dark"] :is(.contact-icon-qq,.contact-icon-phone){filter:invert(1)}
+:root[data-theme="dark"] .work-card:hover .open-chip{color:#151611}
+:root[data-theme="dark"] .case-info button:hover{color:#151611}
+:root[data-theme="dark"] .discipline-sticker{box-shadow:0 1px 0 #ffffff24,0 5px 12px #0005}
+.theme-toggle .theme-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .theme-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .theme-moon{display:none}
+
+/* Keep the floating bar compact with one extra control. */
+.floating-header{grid-template-columns:28px minmax(0,1fr) 112px}
+@media(min-width:768px) and (max-width:1120px){
+ .hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:20px;max-width:max-content}
+ .hero-intro .intro-link{align-self:flex-end}
+}
+@media(max-width:767px){
+ .floating-header{grid-template-columns:28px minmax(0,1fr) 102px;padding:5px 8px;gap:6px}
+ .header-icon{width:34px;padding:7px}
+ .header-name{font-size:clamp(16px,4.8vw,23px)}
+ .header-subtitle{font-size:clamp(7px,2vw,8px)}
+ .hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:22px;margin-top:24px}
+ .hero-intro .discipline-stickers{gap:9px;font-size:15px;max-width:none}
+ .discipline-sticker{padding:9px 13px;border-width:4px}
+ .hero-intro .intro-link{align-self:flex-end}
+}
+@media(max-width:359px){
+ .hero-intro .discipline-stickers{font-size:14px;gap:7px}
+ .discipline-sticker{padding:8px 9px}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ :root[data-theme="dark"] .floating-header,
+ :root[data-theme="dark"] .floating-header.scrolled,
+ :root[data-theme="dark"] .floating-header .header-menu{background:var(--surface)}
+}
+@media(prefers-reduced-transparency:reduce){
+ :root[data-theme="dark"] .floating-header,
+ :root[data-theme="dark"] .floating-header.scrolled,
+ :root[data-theme="dark"] .floating-header .header-menu{background:var(--surface)}
+}
+@media(prefers-reduced-motion:reduce){
+ .discipline-sticker{transition:none}
+ .discipline-sticker:hover,.discipline-sticker:focus-visible,.discipline-sticker:active{transform:rotate(var(--sticker-angle))}
+}
