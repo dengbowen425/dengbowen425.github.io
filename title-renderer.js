@@ -9,9 +9,9 @@ function createPortfolioRenderer(makeCanvas) {
  for(let i=0;i<data.data.length;i+=4){const r=random(),white=r>.52;data.data[i]=white?255:0;data.data[i+1]=white?255:49;data.data[i+2]=white?255:136;data.data[i+3]=r>.2?(white?6+random()*72:20+random()*35):0;}nc.putImageData(data,0,0);
  const states=[-1,0,1,2],keys=[{t:0,s:0},{t:.45,s:0},{t:.87,s:1},{t:1.12,s:1},{t:1.54,s:2},{t:1.79,s:2},{t:2.21,s:3},{t:2.46,s:3},{t:2.98,s:0},{t:3.5,s:0}];
  const groups=[0,0,0,0,1,1,2,2,2];
- function poseAt(t){t=((t%3.5)+3.5)%3.5;let a=keys[0],b=keys[1];for(let i=1;i<keys.length;i++){if(t<=keys[i].t){a=keys[i-1];b=keys[i];break;}}const p=(t-a.t)/(b.t-a.t),e=p*p*(3-2*p);return groups.map(group=>{const ga=states[a.s],gb=states[b.s];const wa=ga<0?1:ga===group?1.95:.27,wb=gb<0?1:gb===group?1.95:.27;const ha=ga<0?.69:ga===group?.90:.18,hb=gb<0?.69:gb===group?.90:.18;return {width:wa+(wb-wa)*e,height:ha+(hb-ha)*e,skew:(ga===group?-.20:0)*(1-e)+(gb===group?-.20:0)*e};});}
+ function poseAt(t){t=((t%3.5)+3.5)%3.5;let a=keys[0],b=keys[1];for(let i=1;i<keys.length;i++){if(t<=keys[i].t){a=keys[i-1];b=keys[i];break;}}const p=(t-a.t)/(b.t-a.t),e=p*p*(3-2*p);return groups.map(group=>{const ga=states[a.s],gb=states[b.s];const wa=ga<0?1:ga===group?1.95:.27,wb=gb<0?1:gb===group?1.95:.27;const ha=ga<0?.55:ga===group?.72:.144,hb=gb<0?.55:gb===group?.72:.144;return {width:wa+(wb-wa)*e,height:ha+(hb-ha)*e,skew:(ga===group?-.20:0)*(1-e)+(gb===group?-.20:0)*e};});}
  function letters(ctx,pose,w,h){const rows=[[0,1,2,3,4,5,6,7,8]];ctx.font=`900 ${FONT}px GothamPortfolio`;ctx.fillStyle='#000';ctx.textBaseline='alphabetic';
-  rows.forEach((row,r)=>{const units=row.reduce((sum,i)=>sum+widths[i]*pose[i].width,0),leanReach=Math.max(...pose.map(p=>Math.max(0,-p.skew)*p.height*h)),available=w*.93-leanReach;let x=w*.035;const baseline=h*.92;
+  rows.forEach((row,r)=>{const units=row.reduce((sum,i)=>sum+widths[i]*pose[i].width,0),leanReach=Math.max(...pose.map(p=>Math.max(0,-p.skew)*p.height*h)),available=w*.93-leanReach;let x=w*.035;const baseline=h*.84;
    row.forEach(i=>{const slot=widths[i]*pose[i].width/units*available;const height=pose[i].height*h;ctx.save();ctx.translate(x,baseline);ctx.transform(slot/widths[i]*.97,0,pose[i].skew*height/cap,height/cap,0,0);ctx.fillText(word[i],0,0);ctx.restore();x+=slot;});
   });
  }

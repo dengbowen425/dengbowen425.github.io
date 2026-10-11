@@ -1,37 +1,52 @@
-/* Three die-cut pieces of the designer's vocabulary; typography remains the hero. */
+/* Larger, original die-cut silhouettes with a physical corner peel. */
 .hero-intro .discipline-stickers{
- display:flex;align-items:center;gap:9px;flex:none;max-width:none;
- margin:0;padding:6px 2px;font-size:16px;line-height:1.4;
+ display:flex;align-items:center;gap:14px;flex:none;max-width:none;
+ margin:0;padding:6px 0;font-size:23px;line-height:1.2;
 }
 .discipline-sticker{
- --sticker-angle:-5deg;--sticker-edge:#a78ae4;
- position:relative;display:inline-flex;align-items:center;justify-content:center;
- isolation:isolate;white-space:nowrap;padding:10px 12px;
- color:#19281b;background:#a3ed88;border:5px solid var(--sticker-edge);
- border-radius:23px 17px 21px 15px;font-weight:750;letter-spacing:-.04em;
- box-shadow:0 1px 0 #00000020,0 5px 9px #00000012;
- transform:rotate(var(--sticker-angle));
- transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+ --sticker-angle:-8deg;--sticker-shape:url('assets/sticker-brand.svg');
+ position:relative;display:block;width:136px;height:104px;flex:none;
+ isolation:isolate;color:#153cc8;font-weight:850;letter-spacing:-.05em;
+ background:transparent;border:0;transform:rotate(var(--sticker-angle));
+ filter:drop-shadow(0 4px 2px #00000018);
+ transition:transform .45s var(--ease),filter .45s var(--ease);
 }
-.discipline-sticker::before{
- content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
- background:url('assets/grain.svg') repeat;background-size:100px;opacity:.12;
- mix-blend-mode:multiply;
+.sticker-back,.sticker-face{position:absolute;inset:0;mask:var(--sticker-shape) center/contain no-repeat;-webkit-mask:var(--sticker-shape) center/contain no-repeat}
+.sticker-back{background:#ebe4d5;transform:translateY(1px)}
+.sticker-face{
+ display:grid;place-items:center;background:var(--sticker-shape) center/contain no-repeat;
+ clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
+ transition:clip-path .45s var(--ease);
 }
-.discipline-sticker span{position:relative}
-.sticker-product{
- --sticker-angle:3deg;--sticker-edge:#fffdf3;
- border-radius:9px 13px 8px 12px;background:#242824;color:#fffdf3;
+.sticker-face::before{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:url('assets/grain.svg') repeat;background-size:110px;opacity:.1;mix-blend-mode:multiply;
 }
-.sticker-commerce{
- --sticker-angle:-3deg;--sticker-edge:#fffdf3;
- border-radius:21px 9px 23px 11px;background:#c9b9ec;color:#282039;
+.sticker-title{position:relative;display:block;max-width:2.2em;text-align:center;line-height:1.12;transform:rotate(-5deg)}
+.sticker-product{--sticker-angle:7deg;--sticker-shape:url('assets/sticker-product.svg');width:148px;height:98px}
+.sticker-product .sticker-title{max-width:none;transform:rotate(-12deg);font-size:21px}
+.sticker-commerce{--sticker-angle:-5deg;--sticker-shape:url('assets/sticker-commerce.svg');width:132px;height:104px}
+.sticker-commerce .sticker-title{transform:rotate(4deg)}
+.sticker-peel{
+ position:absolute;z-index:2;right:7%;bottom:7%;width:36px;height:36px;
+ background:linear-gradient(135deg,#f6f1e8 20%,#d7d0c2 75%,#b3ac9d);
+ clip-path:polygon(0 0,100% 0,0 100%);border-radius:5px 0 0 0;
+ transform-origin:0 0;transform:translate(7px,6px) rotate(-16deg) scale(.05);opacity:0;
+ filter:drop-shadow(3px 5px 2px #0004);
+ transition:transform .45s var(--ease),opacity .2s ease;
+ pointer-events:none;
 }
-.discipline-sticker:hover,.discipline-sticker:focus-visible{
- transform:translateY(-5px) rotate(0);box-shadow:0 8px 13px #00000018;
+.discipline-sticker:focus-visible{outline-offset:7px;border-radius:16px}
+@media(hover:hover) and (pointer:fine){
+ .discipline-sticker:hover{transform:translateY(-5px) rotate(calc(var(--sticker-angle) + 3deg));filter:drop-shadow(0 9px 5px #00000024)}
+ .discipline-sticker:hover .sticker-face{clip-path:polygon(0 0,100% 0,100% 64%,73% 100%,0 100%)}
+ .discipline-sticker:hover .sticker-peel{opacity:1;transform:translate(-2px,-1px) rotate(-12deg) scale(1)}
 }
-.discipline-sticker:active{transform:translateY(-1px) rotate(0)}
-.hero-intro .intro-bottom{gap:22px;max-width:570px}
+.discipline-sticker:focus-visible .sticker-face{clip-path:polygon(0 0,100% 0,100% 64%,73% 100%,0 100%)}
+.discipline-sticker:focus-visible .sticker-peel{opacity:1;transform:translate(-2px,-1px) rotate(-12deg) scale(1)}
+.discipline-sticker:active{transform:rotate(var(--sticker-angle)) scale(.98)}
+.hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:19px;max-width:max-content}
+.hero-intro .intro-link{align-self:flex-end}
 
 /* Manual dark palette: original photographs and artworks are never inverted. */
 :root[data-theme="dark"]{
@@ -65,30 +80,33 @@
 :root[data-theme="dark"] :is(.contact-icon-qq,.contact-icon-phone){filter:invert(1)}
 :root[data-theme="dark"] .work-card:hover .open-chip{color:#151611}
 :root[data-theme="dark"] .case-info button:hover{color:#151611}
-:root[data-theme="dark"] .discipline-sticker{box-shadow:0 1px 0 #ffffff24,0 5px 12px #0005}
+:root[data-theme="dark"] .discipline-sticker{filter:drop-shadow(0 5px 5px #0005)}
 .theme-toggle .theme-sun{display:none}
 :root[data-theme="dark"] .theme-toggle .theme-sun{display:block}
 :root[data-theme="dark"] .theme-toggle .theme-moon{display:none}
 
-/* Keep the floating bar compact with one extra control. */
+/* Center the wordmark on the whole bar, independently of side controls. */
 .floating-header{grid-template-columns:28px minmax(0,1fr) 112px}
-@media(min-width:768px) and (max-width:1120px){
- .hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:20px;max-width:max-content}
- .hero-intro .intro-link{align-self:flex-end}
-}
+.header-wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:calc(100% - 256px)}
+.header-actions{grid-column:3}
 @media(max-width:767px){
- .floating-header{grid-template-columns:28px minmax(0,1fr) 102px;padding:5px 8px;gap:6px}
- .header-icon{width:34px;padding:7px}
+ .floating-header{grid-template-columns:64px minmax(0,1fr) 64px;padding:5px 8px;gap:6px}
+ .header-wordmark{position:static;transform:none;max-width:none}
+ .header-actions>a[href="#contact"]{display:none}
+ .header-icon{width:32px;padding:6px}
  .header-name{font-size:clamp(16px,4.8vw,23px)}
  .header-subtitle{font-size:clamp(7px,2vw,8px)}
- .hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:22px;margin-top:24px}
- .hero-intro .discipline-stickers{gap:9px;font-size:15px;max-width:none}
- .discipline-sticker{padding:9px 13px;border-width:4px}
+ .hero-intro .intro-bottom{gap:18px;margin-top:25px;max-width:100%;width:100%;align-items:flex-start}
+ .hero-intro .discipline-stickers{gap:10px;font-size:21px;max-width:none;width:100%;padding:8px 0}
+ .discipline-sticker{width:calc((100% - 20px)/3);height:94px}
+ .sticker-product .sticker-title{font-size:clamp(15px,4.1vw,18px)}
+ .sticker-peel{width:28px;height:28px}
  .hero-intro .intro-link{align-self:flex-end}
 }
 @media(max-width:359px){
- .hero-intro .discipline-stickers{font-size:14px;gap:7px}
- .discipline-sticker{padding:8px 9px}
+ .hero-intro .discipline-stickers{font-size:19px;gap:8px}
+ .discipline-sticker{width:calc((100% - 16px)/3);height:82px}
+ .sticker-product .sticker-title{font-size:14px}
 }
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
  :root[data-theme="dark"] .floating-header,
@@ -101,6 +119,8 @@
  :root[data-theme="dark"] .floating-header .header-menu{background:var(--surface)}
 }
 @media(prefers-reduced-motion:reduce){
- .discipline-sticker{transition:none}
+ .discipline-sticker,.sticker-face,.sticker-peel{transition:none}
  .discipline-sticker:hover,.discipline-sticker:focus-visible,.discipline-sticker:active{transform:rotate(var(--sticker-angle))}
+ .discipline-sticker:hover .sticker-face,.discipline-sticker:focus-visible .sticker-face{clip-path:none}
+ .discipline-sticker:hover .sticker-peel,.discipline-sticker:focus-visible .sticker-peel{display:none}
 }
