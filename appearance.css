@@ -1,4 +1,4 @@
-/* Larger, original die-cut silhouettes with a physical corner peel. */
+/* Original die-cut silhouettes; the paper curl follows the same alpha contour. */
 .hero-intro .discipline-stickers{
  display:flex;align-items:center;gap:14px;flex:none;max-width:none;
  margin:0;padding:6px 0;font-size:23px;line-height:1.2;
@@ -9,14 +9,11 @@
  isolation:isolate;color:#153cc8;font-weight:850;letter-spacing:-.05em;
  background:transparent;border:0;transform:rotate(var(--sticker-angle));
  filter:drop-shadow(0 4px 2px #00000018);
- transition:transform .45s var(--ease),filter .45s var(--ease);
+ transition:filter .35s var(--ease);
 }
-.sticker-back,.sticker-face{position:absolute;inset:0;mask:var(--sticker-shape) center/contain no-repeat;-webkit-mask:var(--sticker-shape) center/contain no-repeat}
-.sticker-back{background:#ebe4d5;transform:translateY(1px)}
+.sticker-face{position:absolute;inset:0;mask:var(--sticker-shape) center/contain no-repeat;-webkit-mask:var(--sticker-shape) center/contain no-repeat}
 .sticker-face{
  display:grid;place-items:center;background:var(--sticker-shape) center/contain no-repeat;
- clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
- transition:clip-path .45s var(--ease);
 }
 .sticker-face::before{
  content:"";position:absolute;inset:0;pointer-events:none;
@@ -27,24 +24,12 @@
 .sticker-product .sticker-title{max-width:none;transform:rotate(-12deg);font-size:21px}
 .sticker-commerce{--sticker-angle:-5deg;--sticker-shape:url('assets/sticker-commerce.svg');width:132px;height:104px}
 .sticker-commerce .sticker-title{transform:rotate(4deg)}
-.sticker-peel{
- position:absolute;z-index:2;right:7%;bottom:7%;width:36px;height:36px;
- background:linear-gradient(135deg,#f6f1e8 20%,#d7d0c2 75%,#b3ac9d);
- clip-path:polygon(0 0,100% 0,0 100%);border-radius:5px 0 0 0;
- transform-origin:0 0;transform:translate(7px,6px) rotate(-16deg) scale(.05);opacity:0;
- filter:drop-shadow(3px 5px 2px #0004);
- transition:transform .45s var(--ease),opacity .2s ease;
- pointer-events:none;
-}
+.sticker-paper{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);pointer-events:none}
+.discipline-sticker.peel-ready .sticker-face{visibility:hidden}
 .discipline-sticker:focus-visible{outline-offset:7px;border-radius:16px}
 @media(hover:hover) and (pointer:fine){
- .discipline-sticker:hover{transform:translateY(-5px) rotate(calc(var(--sticker-angle) + 3deg));filter:drop-shadow(0 9px 5px #00000024)}
- .discipline-sticker:hover .sticker-face{clip-path:polygon(0 0,100% 0,100% 64%,73% 100%,0 100%)}
- .discipline-sticker:hover .sticker-peel{opacity:1;transform:translate(-2px,-1px) rotate(-12deg) scale(1)}
+ .discipline-sticker:hover{filter:drop-shadow(0 4px 3px #00000020)}
 }
-.discipline-sticker:focus-visible .sticker-face{clip-path:polygon(0 0,100% 0,100% 64%,73% 100%,0 100%)}
-.discipline-sticker:focus-visible .sticker-peel{opacity:1;transform:translate(-2px,-1px) rotate(-12deg) scale(1)}
-.discipline-sticker:active{transform:rotate(var(--sticker-angle)) scale(.98)}
 .hero-intro .intro-bottom{flex-direction:column;align-items:flex-start;gap:19px;max-width:max-content}
 .hero-intro .intro-link{align-self:flex-end}
 
@@ -100,7 +85,6 @@
  .hero-intro .discipline-stickers{gap:10px;font-size:21px;max-width:none;width:100%;padding:8px 0}
  .discipline-sticker{width:calc((100% - 20px)/3);height:94px}
  .sticker-product .sticker-title{font-size:clamp(15px,4.1vw,18px)}
- .sticker-peel{width:28px;height:28px}
  .hero-intro .intro-link{align-self:flex-end}
 }
 @media(max-width:359px){
@@ -119,8 +103,5 @@
  :root[data-theme="dark"] .floating-header .header-menu{background:var(--surface)}
 }
 @media(prefers-reduced-motion:reduce){
- .discipline-sticker,.sticker-face,.sticker-peel{transition:none}
- .discipline-sticker:hover,.discipline-sticker:focus-visible,.discipline-sticker:active{transform:rotate(var(--sticker-angle))}
- .discipline-sticker:hover .sticker-face,.discipline-sticker:focus-visible .sticker-face{clip-path:none}
- .discipline-sticker:hover .sticker-peel,.discipline-sticker:focus-visible .sticker-peel{display:none}
+ .discipline-sticker{transition:none}
 }
