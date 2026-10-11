@@ -1,4 +1,4 @@
 /* Display the supplied lettering exactly; crop its paper margins in layout. */
 .hero-intro .intro-name-art{position:relative;display:block;width:clamp(320px,32vw,470px);max-width:100%;aspect-ratio:1517/700;overflow:hidden;margin:0;line-height:0;background:var(--paper)}
 .intro-name-art img{position:absolute;display:block;width:145.1549%;max-width:none;height:auto;left:-21.5557%;top:-43.2857%;mix-blend-mode:multiply}
-@media(max-width:767px){.hero-intro .intro-name-art{width:clamp(260px,80vw,360px);margin-bottom:0}}
+@media(max-width:767px){.hero-intro .intro-name-art{width:clamp(200px,60vw,270px);margin-bottom:0}}
