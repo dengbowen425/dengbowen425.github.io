@@ -13,20 +13,80 @@
  class PaperSticker{
   constructor(link,image){
    this.link=link;this.image=image;this.progress=0;this.hover=false;this.focus=false;
+   this.drag=null;this.tapPeek=false;this.ignoreClickUntil=0;
    this.canvas=makeCanvas(1,1);this.canvas.className='sticker-paper';
    this.canvas.setAttribute('aria-hidden','true');link.append(this.canvas);
+   this.handle=document.createElement('span');this.handle.className='sticker-peel-handle';
+   this.handle.setAttribute('aria-hidden','true');link.append(this.handle);
    this.ctx=this.canvas.getContext('2d');
    this.n=link.classList.contains('sticker-product')?{x:.79,y:.613}:{x:.70,y:.714};
    const length=Math.hypot(this.n.x,this.n.y);this.n.x/=length;this.n.y/=length;
    this.t={x:-this.n.y,y:this.n.x};
    this.resize();
-   link.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'&&fine.matches){this.hover=true;this.animate();}});
+   link.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'&&fine.matches&&getComputedStyle(this.handle).display==='none'){this.hover=true;this.animate();}});
    link.addEventListener('pointerleave',()=>{this.hover=false;this.animate();});
    link.addEventListener('focus',()=>{this.focus=true;this.animate();});
    link.addEventListener('blur',()=>{this.focus=false;this.animate();});
-   link.addEventListener('click',()=>{this.hover=false;this.focus=false;this.animate();});
+   link.addEventListener('click',()=>{clearTimeout(this.peekTimer);this.tapPeek=false;this.hover=false;this.focus=false;this.animate();});
+   // Corner gestures never activate the anchor; tapping the label still does.
+   link.addEventListener('pointerdown',e=>{
+    if(e.isPrimary&&!this.handle.contains(e.target))this.ignoreClickUntil=0;
+   },true);
+   link.addEventListener('click',e=>{
+    if(e.detail>0&&performance.now()<this.ignoreClickUntil){e.preventDefault();e.stopImmediatePropagation();}
+   },true);
+   link.addEventListener('dragstart',e=>{if(this.drag)e.preventDefault();});
+   this.handle.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();});
+   this.handle.addEventListener('contextmenu',e=>e.preventDefault());
+   this.handle.addEventListener('pointerdown',e=>this.startDrag(e));
+   this.handle.addEventListener('pointermove',e=>this.moveDrag(e));
+   this.handle.addEventListener('pointerup',e=>{if(this.drag?.id===e.pointerId)this.finishDrag(false);});
+   this.handle.addEventListener('pointercancel',e=>{if(this.drag?.id===e.pointerId)this.finishDrag(true);});
+   this.handle.addEventListener('lostpointercapture',e=>{if(this.drag?.id===e.pointerId)this.finishDrag(true);});
    new ResizeObserver(()=>this.resize()).observe(link);
    link.classList.add('peel-ready');
+  }
+  localPoint(e){
+   const rect=this.link.getBoundingClientRect();
+   const inverse=new DOMMatrixReadOnly(getComputedStyle(this.link).transform).inverse();
+   const p=new DOMPoint(e.clientX-rect.left-rect.width/2,e.clientY-rect.top-rect.height/2).matrixTransform(inverse);
+   return{x:p.x+this.w/2,y:p.y+this.h/2};
+  }
+  startDrag(e){
+   if(reduced.matches||!e.isPrimary||e.button!==0||this.drag)return;
+   e.preventDefault();clearTimeout(this.peekTimer);this.tapPeek=false;
+   this.hover=false;this.focus=false;
+   const base=Math.max(.16,this.progress);
+   this.drag={id:e.pointerId,start:this.localPoint(e),base,amount:base,maxDistance:0};
+   this.ignoreClickUntil=performance.now()+1000;
+   this.link.classList.add('is-peeling');
+   this.handle.setPointerCapture(e.pointerId);this.animate();
+  }
+  moveDrag(e){
+   const drag=this.drag;if(!drag||drag.id!==e.pointerId)return;
+   e.preventDefault();const p=this.localPoint(e);
+   const dx=drag.start.x-p.x,dy=drag.start.y-p.y;
+   drag.maxDistance=Math.max(drag.maxDistance,Math.hypot(dx,dy));
+   const pull=dx*this.n.x+dy*this.n.y;
+   drag.amount=Math.max(0,Math.min(1,drag.base+pull/(Math.min(this.w,this.h)*.37)));
+   this.animate();
+  }
+  finishDrag(cancelled){
+   const drag=this.drag;if(!drag)return;
+   this.drag=null;this.hover=false;this.focus=false;
+   this.ignoreClickUntil=performance.now()+450;
+   this.link.classList.remove('is-peeling');
+   if(this.handle.hasPointerCapture(drag.id))this.handle.releasePointerCapture(drag.id);
+   // A small corner tap demonstrates the gesture without changing sections.
+   if(!cancelled&&drag.maxDistance<8){
+    this.tapPeek=true;clearTimeout(this.peekTimer);
+    this.peekTimer=setTimeout(()=>{this.tapPeek=false;this.animate();},650);
+   }
+   this.animate();
+  }
+  reset(){
+   clearTimeout(this.peekTimer);this.tapPeek=false;this.hover=false;this.focus=false;
+   this.finishDrag(true);this.animate();
   }
   resize(){
    const w=this.link.clientWidth,h=this.link.clientHeight;
@@ -78,6 +138,8 @@
   draw(){
    const {ctx,w,h,ratio,n,t}=this;
    if(!this.front)return;
+   this.canvas.dataset.peelProgress=String(Math.round(this.progress*100));
+   this.canvas.dataset.gesture=this.drag?'pulling':this.tapPeek?'peek':'idle';
    ctx.setTransform(ratio,0,0,ratio,pad*ratio,pad*ratio);
    ctx.clearRect(-pad,-pad,w+pad*2,h+pad*2);
    const depth=Math.min(w,h)*.37*this.progress;
@@ -124,12 +186,13 @@
    this.canvas.dataset.peel=this.progress>.99?'curled':'moving';
   }
   animate(){
-   this.target=!reduced.matches&&(this.hover||this.focus)?1:0;
+   this.target=reduced.matches?0:this.drag?this.drag.amount:(this.hover||this.focus||this.tapPeek)?1:0;
    if(this.frame)return;
    let last=performance.now();
    const tick=now=>{
     const delta=Math.min(40,now-last);last=now;
-    this.progress+=(this.target-this.progress)*(1-Math.exp(-delta/105));
+    if(this.drag)this.progress=this.target;
+    else this.progress+=(this.target-this.progress)*(1-Math.exp(-delta/105));
     if(Math.abs(this.target-this.progress)<.001)this.progress=this.target;
     this.draw();
     if(this.progress!==this.target)this.frame=requestAnimationFrame(tick);else this.frame=0;
@@ -147,7 +210,8 @@
    }catch{/* Retain the accessible, static SVG sticker if canvas cannot initialize. */}
   }));
  };
- reduced.addEventListener('change',()=>instances.forEach(sticker=>sticker.animate()));
- document.addEventListener('visibilitychange',()=>{if(document.hidden)instances.forEach(sticker=>{sticker.hover=false;sticker.focus=false;sticker.animate();});});
+ reduced.addEventListener('change',()=>instances.forEach(sticker=>sticker.reset()));
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)instances.forEach(sticker=>sticker.reset());});
+ window.addEventListener('blur',()=>instances.forEach(sticker=>sticker.reset()));
  start();
 })();

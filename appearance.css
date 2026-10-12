@@ -1,6 +1,6 @@
 /* Original die-cut silhouettes; the paper curl follows the same alpha contour. */
 .hero-intro .discipline-stickers{
- display:flex;align-items:center;gap:14px;flex:none;max-width:none;
+ position:relative;display:flex;align-items:center;gap:14px;flex:none;max-width:none;
  margin:0;padding:6px 0;font-size:23px;line-height:1.2;
 }
 .discipline-sticker{
@@ -26,6 +26,9 @@
 .sticker-commerce .sticker-title{transform:rotate(4deg)}
 .sticker-paper{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);pointer-events:none}
 .discipline-sticker.peel-ready .sticker-face{visibility:hidden}
+.sticker-peel-handle{display:none;position:absolute;right:0;bottom:0;width:44px;height:44px;clip-path:polygon(55% 0,100% 0,100% 100%,0 100%,0 55%);z-index:3;touch-action:none;cursor:grab;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.discipline-sticker.is-peeling .sticker-peel-handle{cursor:grabbing}
+.sticker-touch-hint{display:none;position:absolute;left:0;bottom:-24px;color:var(--muted);font-size:13px;font-weight:400;line-height:18px;letter-spacing:0;white-space:nowrap;pointer-events:none}
 .discipline-sticker:focus-visible{outline-offset:7px;border-radius:16px}
 @media(hover:hover) and (pointer:fine){
  .discipline-sticker:hover{filter:drop-shadow(0 4px 3px #00000020)}
@@ -75,6 +78,7 @@
 .header-wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:calc(100% - 288px)}
 .header-actions{grid-column:3}
 @media(max-width:767px){
+ .peel-ready .sticker-peel-handle,.discipline-stickers:has(.peel-ready) .sticker-touch-hint{display:block}
  .floating-header{grid-template-columns:72px minmax(0,1fr) 72px;padding:6px 10px;gap:6px}
  .header-wordmark{position:static;transform:none;max-width:none}
  .header-actions>a[href="#contact"]{display:none}
@@ -86,6 +90,9 @@
  .discipline-sticker{width:calc((100% - 20px)/3);height:94px}
  .sticker-product .sticker-title{font-size:clamp(15px,4.1vw,18px)}
  .hero-intro .intro-link{align-self:flex-end}
+}
+@media(hover:none) and (pointer:coarse){
+ .peel-ready .sticker-peel-handle,.discipline-stickers:has(.peel-ready) .sticker-touch-hint{display:block}
 }
 @media(max-width:359px){
  .hero-intro .discipline-stickers{font-size:19px;gap:8px}
@@ -104,4 +111,5 @@
 }
 @media(prefers-reduced-motion:reduce){
  .discipline-sticker{transition:none}
+ .peel-ready .sticker-peel-handle,.discipline-stickers:has(.peel-ready) .sticker-touch-hint{display:none}
 }
