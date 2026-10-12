@@ -1,6 +1,5 @@
 'use strict';
 const projects=[
-{id:'coca',name:'可口可乐 · 城市罐',subtitle:'寻味城市，畅爽如一',category:'brand',label:'品牌活动 / H5 视觉',role:'H5 视觉设计',scope:'2019 · 城市美食罐视觉延展、H5 页面设计',description:'以各地的美食、建筑与人文元素延展城市罐视觉，将城市风味串成一段轻巧的 H5 体验。',pages:[],image:'cover-coca',notes:[{heading:'城市风味的视觉延展',text:'在原有城市美食罐素材上进行 H5 延展设计，将地方美食与城市建筑融入加载画面和活动页面。'},{heading:'从罐身走进屏幕',text:'2019 年美团点评 × 可口可乐城市罐活动。数字代理商：DAS Digital 大释 杭州；数英项目设计署名：莫来福。此处展示原项目视觉与动画。'}]},
 {id:'bein',name:'BEINSPACE',subtitle:'户外女装的日常表达',category:'digital',label:'电商视觉 / AI',role:'视觉负责人',scope:'小红书运营视觉、电商页面、AI 设计工作流',description:'围绕户外女装的产品与生活方式，建立小红书内容和电商视觉表达。将 AI 融入创意探索、视觉设定与素材制作，再通过设计完成统一的品牌呈现。',pages:[8,17],image:'cover-bein'},
 {id:'bein-detail',name:'BEINSPACE · 电商详情页',subtitle:'从户外场景到服饰细节',category:'digital',label:'电商视觉 / 详情页',role:'视觉负责人',scope:'服饰电商详情页、产品信息与视觉编排',description:'围绕户外女装的产品特点，把场景形象、版型工艺、面料细节与尺码信息串成连续的阅读路径。',pages:[18],image:'cover-bein-detail'},
 {id:'recore',name:'Recore 无限核子',subtitle:'健身空间的全新品牌识别',category:'brand',label:'品牌识别 / 空间',role:'主视觉设计负责人',scope:'Logo、VI、空间视觉方案',description:'为乐刻旗下高端健身空间探索新的品牌识别。通过符号、字体与色彩建立清晰的视觉语言，并延展到空间中的应用场景。本项目为设计方案呈现。',pages:[10],image:'cover-recore'},
@@ -70,14 +69,13 @@ document.querySelector('#case-category').textContent=p.label+(p.status?' · '+p.
 document.querySelector('#case-description').textContent=p.description;
 document.querySelector('#case-role').textContent=p.role;
 document.querySelector('#case-scope').textContent=p.scope;
-document.querySelector('#notes-origin').textContent=p.id==='coca'?'根据数英公开项目资料整理':['morelife','ospreys','bein-detail'].includes(p.id)?'根据原展板内容整理':'根据原作品集文字整理';
+document.querySelector('#notes-origin').textContent=['morelife','ospreys','bein-detail'].includes(p.id)?'根据原展板内容整理':'根据原作品集文字整理';
 const noteGrid=document.querySelector('#case-notes');noteGrid.replaceChildren(...p.notes.map(note=>{const item=document.createElement('article');const heading=document.createElement('h3');heading.textContent=note.heading;const copy=document.createElement('p');copy.textContent=note.text;item.append(heading,copy);return item;}));
 const art=document.querySelector('#case-art');art.dataset.project=p.id;art.replaceChildren();
 // Load one opening board promptly, then request only the boards near the reader.
 const pendingBoards=new Map();
 const boardObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const load=pendingBoards.get(entry.target);if(load){load();pendingBoards.delete(entry.target);}boardObserver.unobserve(entry.target);});},{root:dialog,rootMargin:'450px 0px'});
 projectMotionStops.push(()=>{boardObserver.disconnect();pendingBoards.clear();});
-if(p.id==='coca')art.append(createCocaCase(projectMotionStops));
 p.pages.forEach((page,pageIndex)=>{
  const board=document.createElement('div');board.className='original-board';const placeholders=getBoardPlaceholders(page);
  boards[page].parts.forEach((part,i)=>{
@@ -118,7 +116,6 @@ catch{feedback.textContent='暂时无法自动复制，可以长按或选中上�
 const warmedBoards=new Set();
 function warmOpeningBoard(id){
  const project=projects.find(p=>p.id===id);if(!project)return;
- if(project.id==='coca')return;
  const stem=boards[project.pages[0]].parts[0].src.replace('case-hd-','case-view-').replace('.webp','');
  if(warmedBoards.has(stem))return;warmedBoards.add(stem);getBoardPlaceholders(project.pages[0]);
  const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.type='image/avif';preload.fetchPriority='low';preload.href=stem+'-1280.avif';
