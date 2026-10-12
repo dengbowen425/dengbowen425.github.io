@@ -27,8 +27,8 @@
    link.addEventListener('pointerleave',()=>{this.hover=false;this.animate();});
    link.addEventListener('focus',()=>{this.focus=true;this.animate();});
    link.addEventListener('blur',()=>{this.focus=false;this.animate();});
-   link.addEventListener('click',()=>{clearTimeout(this.peekTimer);this.tapPeek=false;this.hover=false;this.focus=false;this.animate();});
-   // Corner gestures never activate the anchor; tapping the label still does.
+   link.addEventListener('click',()=>{if(reduced.matches)return;clearTimeout(this.peekTimer);this.tapPeek=true;this.hover=false;this.focus=false;this.peekTimer=setTimeout(()=>{this.tapPeek=false;this.animate();},650);this.animate();});
+   // Both the label and the corner only demonstrate the paper interaction.
    link.addEventListener('pointerdown',e=>{
     if(e.isPrimary&&!this.handle.contains(e.target))this.ignoreClickUntil=0;
    },true);

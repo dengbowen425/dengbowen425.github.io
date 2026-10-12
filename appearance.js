@@ -21,9 +21,4 @@
   window.addEventListener('storage', event => {
     if (event.key === key) apply(event.newValue);
   });
-  document.querySelectorAll('[data-discipline-filter]').forEach(sticker => {
-    sticker.addEventListener('click', () => {
-      document.querySelector(`[data-filter="${sticker.dataset.disciplineFilter}"]`)?.click();
-    });
-  });
 })();

@@ -1,0 +1,31 @@
+/* Keep the TV treatment in the original favicon area, not on the title. */
+.festival-signal{position:absolute;left:59%;top:42.5%;width:24.5%;height:13.3%;visibility:hidden;pointer-events:none}
+.festival-signal.is-ready{visibility:visible}
+.festival-signal canvas{display:block;width:100%;height:100%}
+.festival-signal-toggle{position:absolute;right:0;bottom:-27px;background:#050505b0;color:#bcbcb5;line-height:1.2;font-size:12px;padding:7px 9px;pointer-events:auto;border-radius:4px}
+.festival-signal-toggle:hover{color:#fff}
+.coca-case{background:#edeee9;color:#202020;padding-bottom:60px;line-height:1.4}
+.case-art .coca-hero{width:100%;height:auto;display:block}
+.coca-case-heading{padding:clamp(36px,6vw,100px) 6% 30px}
+.coca-case-heading>span{font-size:12px;letter-spacing:.12em;color:#64655f}
+.coca-case-heading h3{font-size:clamp(30px,4.6vw,66px);letter-spacing:-.04em;line-height:1.15;margin:20px 0 14px;font-weight:650}
+.coca-case-heading p{color:#64655f;font-size:clamp(14px,1.4vw,20px);margin:0}
+.coca-viewer{padding:0 6%}
+.coca-city-select{display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 28px;max-width:900px}
+.coca-city-select button{background:transparent;border:1px solid #c1c3bb;border-radius:100px;font-size:14px;padding:10px 17px;color:#42433f;transition:background .2s,color .2s}
+.coca-city-select button[aria-pressed=true]{background:#df080e;color:#fff;border-color:#df080e}
+.coca-city-select button:hover{border-color:#df080e}
+.coca-stage{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,70px);max-width:1100px;margin:auto}
+.coca-case figure{margin:0;min-width:0}
+.case-art .coca-stage img{aspect-ratio:750/1464;object-fit:contain;background:#eee;border-radius:12px}
+.coca-case figcaption{color:#686960;font-size:14px;line-height:1.5;padding:14px 0 0}
+.coca-playback{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:22px auto 0;padding:16px 0;border-top:1px solid #c1c3bb;font-size:15px}
+.coca-playback button{background:transparent;color:#42433f;padding:8px 0 8px 20px;font-size:14px}
+.coca-city-archive{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px 18px;padding:10px 6% 50px}
+.case-art .coca-city-archive img{border-radius:6px;aspect-ratio:360/703;background:#e00008;object-fit:contain}
+.coca-source{display:inline-block;margin:0 6%;color:#c50006;padding:14px 0;border-bottom:1px solid #c50006;font-size:15px}
+.discipline-sticker{padding:0;text-align:inherit;touch-action:pan-y}
+@media(max-width:767px){.festival-signal-toggle{font-size:10px;bottom:-24px;padding:5px 7px}.coca-case{padding-bottom:36px}.coca-case-heading{padding:36px 6% 20px}.coca-case-heading>span{font-size:10px}.coca-case-heading h3{margin:15px 0 12px}.coca-city-select{gap:7px;padding-bottom:22px}.coca-city-select button{font-size:13px;padding:8px 13px}.coca-stage{gap:26px;grid-template-columns:1fr}.case-art .coca-stage img{border-radius:7px}.coca-case figcaption{font-size:12px;padding-top:9px}.coca-city-archive{grid-template-columns:repeat(3,minmax(0,1fr));gap:21px 10px;padding-bottom:30px}.coca-playback{font-size:13px}.coca-playback button{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.festival-signal{display:none}.coca-city-select button{transition:none}}
+
+.art-label.is-city-case>span:last-child{display:none}

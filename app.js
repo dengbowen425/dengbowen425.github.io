@@ -1,5 +1,6 @@
 'use strict';
 const projects=[
+{id:'coca',name:'可口可乐 · 城市罐',subtitle:'寻味城市，畅爽如一',category:'brand',label:'品牌活动 / H5 视觉',role:'H5 视觉设计',scope:'2019 · 城市美食罐视觉延展、H5 页面设计',description:'以各地的美食、建筑与人文元素延展城市罐视觉，将城市风味串成一段轻巧的 H5 体验。',pages:[],image:'cover-coca',notes:[{heading:'城市风味的视觉延展',text:'在原有城市美食罐素材上进行 H5 延展设计，将地方美食与城市建筑融入加载画面和活动页面。'},{heading:'从罐身走进屏幕',text:'2019 年美团点评 × 可口可乐城市罐活动。数字代理商：DAS Digital 大释 杭州；数英项目设计署名：莫来福。此处展示原项目视觉与动画。'}]},
 {id:'bein',name:'BEINSPACE',subtitle:'户外女装的日常表达',category:'digital',label:'电商视觉 / AI',role:'视觉负责人',scope:'小红书运营视觉、电商页面、AI 设计工作流',description:'围绕户外女装的产品与生活方式，建立小红书内容和电商视觉表达。将 AI 融入创意探索、视觉设定与素材制作，再通过设计完成统一的品牌呈现。',pages:[8,17],image:'cover-bein'},
 {id:'bein-detail',name:'BEINSPACE · 电商详情页',subtitle:'从户外场景到服饰细节',category:'digital',label:'电商视觉 / 详情页',role:'视觉负责人',scope:'服饰电商详情页、产品信息与视觉编排',description:'围绕户外女装的产品特点，把场景形象、版型工艺、面料细节与尺码信息串成连续的阅读路径。',pages:[18],image:'cover-bein-detail'},
 {id:'recore',name:'Recore 无限核子',subtitle:'健身空间的全新品牌识别',category:'brand',label:'品牌识别 / 空间',role:'主视觉设计负责人',scope:'Logo、VI、空间视觉方案',description:'为乐刻旗下高端健身空间探索新的品牌识别。通过符号、字体与色彩建立清晰的视觉语言，并延展到空间中的应用场景。本项目为设计方案呈现。',pages:[10],image:'cover-recore'},
@@ -30,23 +31,7 @@ renderProjects();
 const dialog=document.querySelector('#project-dialog');let currentProject='bein';let opener=null;
 const projectMotionStops=[];
 function stopProjectMotions(){projectMotionStops.splice(0).forEach(stop=>stop());}
-function createFestivalMotion(){
-const stage=document.createElement('div');stage.className='festival-inplace-motion';stage.setAttribute('aria-label','原展板字标动态效果');
-stage.innerHTML='<div class="festival-motion-art"></div><button type="button" class="festival-motion-toggle" aria-label="暂停嘉年华标识动效" aria-pressed="false">暂停动效</button>';
-let alive=true;
-// This project-only asset is never requested by the homepage.
-fetch('assets/festival-scatter.svg?v=20261006fast').then(response=>{if(!response.ok)throw new Error('Wordmark unavailable');return response.text();}).then(svg=>{
- if(!alive)return;const background=new Image();background.src='assets/festival-crowd-preview.webp?v=20261006fast';
- background.decode().then(()=>{if(!alive)return;stage.querySelector('.festival-motion-art').innerHTML=svg;stage.classList.add('is-ready');}).catch(()=>{});
-}).catch(()=>{if(alive)stage.remove();});
-const button=stage.querySelector('button');let paused=false,visible=false;
-const sync=()=>stage.classList.toggle('is-playing',visible&&!paused&&!document.hidden);
-const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();},{threshold:.15});observer.observe(stage);
-button.addEventListener('click',()=>{paused=!paused;stage.classList.toggle('is-paused',paused);stage.parentElement?.querySelector('.festival-band-inplace')?.classList.toggle('is-paused',paused);button.textContent=paused?'播放动效':'暂停动效';button.setAttribute('aria-pressed',String(paused));button.setAttribute('aria-label',paused?'播放嘉年华标识动效':'暂停嘉年华标识动效');sync();});
-document.addEventListener('visibilitychange',sync);
-projectMotionStops.push(()=>{alive=false;observer.disconnect();document.removeEventListener('visibilitychange',sync);stage.classList.remove('is-playing');});
-return stage;
-}
+function createFestivalMotion(image){return createFestivalGlitch(image,projectMotionStops);}
 // Animate the original orange strip in place; keep the PDF underneath as a fallback.
 function createOriginalFestivalBand(){
  const stage=document.createElement('div');stage.className='festival-band-inplace';stage.setAttribute('aria-hidden','true');
@@ -85,13 +70,14 @@ document.querySelector('#case-category').textContent=p.label+(p.status?' · '+p.
 document.querySelector('#case-description').textContent=p.description;
 document.querySelector('#case-role').textContent=p.role;
 document.querySelector('#case-scope').textContent=p.scope;
-document.querySelector('#notes-origin').textContent=['morelife','ospreys','bein-detail'].includes(p.id)?'根据原展板内容整理':'根据原作品集文字整理';
+document.querySelector('#notes-origin').textContent=p.id==='coca'?'根据数英公开项目资料整理':['morelife','ospreys','bein-detail'].includes(p.id)?'根据原展板内容整理':'根据原作品集文字整理';
 const noteGrid=document.querySelector('#case-notes');noteGrid.replaceChildren(...p.notes.map(note=>{const item=document.createElement('article');const heading=document.createElement('h3');heading.textContent=note.heading;const copy=document.createElement('p');copy.textContent=note.text;item.append(heading,copy);return item;}));
 const art=document.querySelector('#case-art');art.dataset.project=p.id;art.replaceChildren();
 // Load one opening board promptly, then request only the boards near the reader.
 const pendingBoards=new Map();
 const boardObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const load=pendingBoards.get(entry.target);if(load){load();pendingBoards.delete(entry.target);}boardObserver.unobserve(entry.target);});},{root:dialog,rootMargin:'450px 0px'});
 projectMotionStops.push(()=>{boardObserver.disconnect();pendingBoards.clear();});
+if(p.id==='coca')art.append(createCocaCase(projectMotionStops));
 p.pages.forEach((page,pageIndex)=>{
  const board=document.createElement('div');board.className='original-board';const placeholders=getBoardPlaceholders(page);
  boards[page].parts.forEach((part,i)=>{
@@ -103,7 +89,7 @@ p.pages.forEach((page,pageIndex)=>{
   img.addEventListener('error',()=>{picture.querySelectorAll('source').forEach(source=>source.remove());img.src=part.src.replace('case-hd-','case-preview-')+'?v=20261006fast';},{once:true});
   const load=()=>{const stem=part.src.replace('case-hd-','case-view-').replace('.webp','');mobile.srcset=`${stem}-960.avif 960w, ${stem}-1280.avif 1280w`;desktop.srcset=mobile.srcset+`, ${stem}-1800.avif 1800w`;img.src=part.src.replace('case-hd-','case-preview-')+'?v=20261006fast';};
   button.addEventListener('click',()=>openImage(img));
-  if(p.id==='festival'&&page===7&&i===0){const original=document.createElement('div');original.className='festival-original-segment';original.append(button,createFestivalMotion(),createOriginalFestivalBand());board.append(original);}else board.append(button);
+  if(p.id==='festival'&&page===7&&i===0){const original=document.createElement('div');original.className='festival-original-segment';original.append(button,createFestivalMotion(img),createOriginalFestivalBand());board.append(original);}else board.append(button);
   if(part.photo){const caption=document.createElement('p');caption.className='festival-photo-caption';caption.textContent='活动现场物料周边设计';board.append(caption);}
   if(pageIndex===0&&i===0)load();else{pendingBoards.set(button,load);boardObserver.observe(button);}
  });art.append(board);
@@ -112,7 +98,7 @@ playBroadcastTransition(p);
 if(!dialog.open){dialog.showModal();document.body.classList.add('modal-open');}dialog.scrollTop=0;document.querySelector('#close-dialog').focus({preventScroll:true});
 }
 function closeProject(){dialog.close();}
-document.addEventListener('click',event=>{const project=event.target.closest('[data-project]');if(project){openProject(project.dataset.project);return;}const filter=event.target.closest('[data-filter]');if(filter){document.querySelectorAll('[data-filter]').forEach(btn=>{const active=btn===filter;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});renderProjects(filter.dataset.filter);}});
+document.addEventListener('click',event=>{const project=event.target.closest('.work-card[data-project]');if(project){openProject(project.dataset.project);return;}const filter=event.target.closest('[data-filter]');if(filter){document.querySelectorAll('[data-filter]').forEach(btn=>{const active=btn===filter;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});renderProjects(filter.dataset.filter);}});
 document.querySelector('#close-dialog').addEventListener('click',closeProject);
 dialog.addEventListener('close',()=>{stopBroadcastTransition();stopProjectMotions();document.body.classList.remove('modal-open');if(opener&&opener.isConnected)opener.focus({preventScroll:true});});
 document.querySelector('#next-project').addEventListener('click',()=>{const index=projects.findIndex(p=>p.id===currentProject);openProject(projects[(index+1)%projects.length].id);});
@@ -132,16 +118,17 @@ catch{feedback.textContent='暂时无法自动复制，可以长按或选中上�
 const warmedBoards=new Set();
 function warmOpeningBoard(id){
  const project=projects.find(p=>p.id===id);if(!project)return;
+ if(project.id==='coca')return;
  const stem=boards[project.pages[0]].parts[0].src.replace('case-hd-','case-view-').replace('.webp','');
  if(warmedBoards.has(stem))return;warmedBoards.add(stem);getBoardPlaceholders(project.pages[0]);
  const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.type='image/avif';preload.fetchPriority='low';preload.href=stem+'-1280.avif';
  preload.imageSrcset=`${stem}-960.avif 960w, ${stem}-1280.avif 1280w`+(innerWidth>767?`, ${stem}-1800.avif 1800w`:'');preload.imageSizes='100vw';document.head.append(preload);
 }
 let warmTimer=0;
-document.addEventListener('pointerover',event=>{if(event.pointerType==='touch')return;const card=event.target.closest('[data-project]');if(!card||card.contains(event.relatedTarget))return;clearTimeout(warmTimer);warmTimer=setTimeout(()=>warmOpeningBoard(card.dataset.project),140);});
-document.addEventListener('pointerout',event=>{const card=event.target.closest('[data-project]');if(card&&!card.contains(event.relatedTarget))clearTimeout(warmTimer);});
-document.addEventListener('focusin',event=>{const card=event.target.closest('[data-project]');if(card)warmOpeningBoard(card.dataset.project);});
-document.addEventListener('pointerdown',event=>{const card=event.target.closest('[data-project]');if(card)warmOpeningBoard(card.dataset.project);},{passive:true});
+document.addEventListener('pointerover',event=>{if(event.pointerType==='touch')return;const card=event.target.closest('.work-card[data-project]');if(!card||card.contains(event.relatedTarget))return;clearTimeout(warmTimer);warmTimer=setTimeout(()=>warmOpeningBoard(card.dataset.project),140);});
+document.addEventListener('pointerout',event=>{const card=event.target.closest('.work-card[data-project]');if(card&&!card.contains(event.relatedTarget))clearTimeout(warmTimer);});
+document.addEventListener('focusin',event=>{const card=event.target.closest('.work-card[data-project]');if(card)warmOpeningBoard(card.dataset.project);});
+document.addEventListener('pointerdown',event=>{const card=event.target.closest('.work-card[data-project]');if(card)warmOpeningBoard(card.dataset.project);},{passive:true});
 window.addEventListener('portfolio-open',event=>openProject(event.detail));
 // A single demand-driven update for pointer feedback, including filtered cards.
 (() => {
