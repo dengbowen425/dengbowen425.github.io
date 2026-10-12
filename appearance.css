@@ -26,7 +26,7 @@
 .sticker-commerce .sticker-title{transform:rotate(4deg)}
 .sticker-paper{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);pointer-events:none}
 .discipline-sticker.peel-ready .sticker-face{visibility:hidden}
-.sticker-peel-handle{display:none;position:absolute;right:0;bottom:0;width:44px;height:44px;clip-path:polygon(55% 0,100% 0,100% 100%,0 100%,0 55%);z-index:3;touch-action:none;cursor:grab;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.sticker-peel-handle{display:none;position:absolute;right:0;bottom:0;width:44px;height:44px;clip-path:polygon(90% 0,100% 0,100% 100%,0 100%,0 90%);z-index:3;touch-action:none;cursor:grab;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .discipline-sticker.is-peeling .sticker-peel-handle{cursor:grabbing}
 .sticker-touch-hint{display:none;position:absolute;left:0;bottom:-24px;color:var(--muted);font-size:13px;font-weight:400;line-height:18px;letter-spacing:0;white-space:nowrap;pointer-events:none}
 .discipline-sticker:focus-visible{outline-offset:7px;border-radius:16px}

@@ -23,7 +23,7 @@
    const length=Math.hypot(this.n.x,this.n.y);this.n.x/=length;this.n.y/=length;
    this.t={x:-this.n.y,y:this.n.x};
    this.resize();
-   link.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'&&fine.matches&&getComputedStyle(this.handle).display==='none'){this.hover=true;this.animate();}});
+   link.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'&&fine.matches&&!this.drag){this.hover=true;this.animate();}});
    link.addEventListener('pointerleave',()=>{this.hover=false;this.animate();});
    link.addEventListener('focus',()=>{this.focus=true;this.animate();});
    link.addEventListener('blur',()=>{this.focus=false;this.animate();});
@@ -99,6 +99,10 @@
    const ctx=this.front.getContext('2d');ctx.scale(ratio,ratio);
    const fit=Math.min(w/this.image.width,h/this.image.height);
    const iw=this.image.width*fit,ih=this.image.height*fit;
+   // Hit the printed paper corner, including in wider landscape layouts.
+   this.handle.style.left=`${(w-iw)/2+iw-44}px`;
+   this.handle.style.top=`${(h-ih)/2+ih-44}px`;
+   this.handle.style.right='auto';this.handle.style.bottom='auto';
    ctx.drawImage(this.image,(w-iw)/2,(h-ih)/2,iw,ih);
    // Very fine print texture, restricted to the existing die-cut silhouette.
    const pixels=ctx.getImageData(0,0,this.front.width,this.front.height);
