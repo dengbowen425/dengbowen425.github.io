@@ -1,22 +1,22 @@
 /* Clear frosted glass, with the original dark MORE LIFE identity. */
 html{scroll-padding-top:120px}
 .floating-header{
- --glass-bg:rgba(255,255,255,.16);
+ --glass-bg:rgba(255,255,255,.096);
  display:grid;grid-template-columns:1fr auto 1fr;gap:14px;
  width:min(calc(100% - 32px),620px);height:66px;
  margin:20px auto 0;padding:6px 20px;
  position:sticky;top:20px;z-index:20;
  color:#161616;background:var(--glass-bg);
- -webkit-backdrop-filter:blur(17.6px) saturate(135%);
- backdrop-filter:blur(17.6px) saturate(135%);
- border:1px solid rgba(255,255,255,.58);border-radius:14px;
- box-shadow:0 5px 20px rgba(0,0,0,.045),inset 0 1px 0 rgba(255,255,255,.65);
+ -webkit-backdrop-filter:blur(10.56px) saturate(135%);
+ backdrop-filter:blur(10.56px) saturate(135%);
+ border:1px solid rgba(255,255,255,.348);border-radius:14px;
+ box-shadow:0 5px 20px rgba(0,0,0,.027),inset 0 1px 0 rgba(255,255,255,.39);
  transition:background .25s ease,box-shadow .25s ease;
  isolation:isolate;
 }
 .floating-header.scrolled{
- background:rgba(255,255,255,.24);border-color:rgba(255,255,255,.58);
- box-shadow:0 7px 24px rgba(0,0,0,.075),inset 0 1px 0 rgba(255,255,255,.65);
+ background:rgba(255,255,255,.144);border-color:rgba(255,255,255,.348);
+ box-shadow:0 7px 24px rgba(0,0,0,.045),inset 0 1px 0 rgba(255,255,255,.39);
 }
 .floating-header .identity{justify-self:start;gap:0;border-radius:3px}
 .floating-header .identity-mark{width:34px;height:34px}

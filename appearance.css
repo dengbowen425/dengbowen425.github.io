@@ -45,11 +45,11 @@
 :root[data-theme="dark"] body::before{mix-blend-mode:screen;opacity:.04}
 :root[data-theme="dark"] .intro-name-art img{filter:invert(1);mix-blend-mode:screen}
 :root[data-theme="dark"] .floating-header{
- --glass-bg:rgba(63,65,59,.2);color:var(--ink);
- border-color:rgba(255,255,255,.18);
- box-shadow:0 5px 20px #0002,inset 0 1px 0 #ffffff0b;
+ --glass-bg:rgba(63,65,59,.12);color:var(--ink);
+ border-color:rgba(255,255,255,.108);
+ box-shadow:0 5px 20px #00000014,inset 0 1px 0 #ffffff07;
 }
-:root[data-theme="dark"] .floating-header.scrolled{background:rgba(63,65,59,.3);border-color:#ffffff2e}
+:root[data-theme="dark"] .floating-header.scrolled{background:rgba(63,65,59,.18);border-color:rgba(255,255,255,.108)}
 :root[data-theme="dark"] .header-subtitle{color:var(--muted)}
 :root[data-theme="dark"] .floating-header .identity-mark .identity-logo{filter:invert(1);mix-blend-mode:screen}
 :root[data-theme="dark"] .header-icon{color:var(--ink)}
