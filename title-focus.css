@@ -1,7 +1,7 @@
 /* The kinetic title is the only visual event in the opening composition. */
-.hero{min-height:0;padding-top:12px;padding-bottom:28px;display:flex;flex-direction:column}
-.hero h1{height:clamp(280px,27vw,430px);flex:none;min-height:0;margin-bottom:0}
-.title-actions{flex:none;margin:0 0 12px;padding:0}
+.hero{min-height:calc(100svh - 86px);padding-top:clamp(28px,3vw,48px);padding-bottom:40px;display:flex;flex-direction:column}
+.hero h1{height:clamp(320px,33vw,560px);flex:1;min-height:clamp(320px,33vw,560px);margin-bottom:18px}
+.title-actions{flex:none;margin:0 0 26px;padding:0}
 .hero-bottom{display:block;min-height:0}
 .hero-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:clamp(32px,6vw,96px);width:100%;max-width:none;padding:0}
 .hero-intro .intro-name-art{width:clamp(250px,25vw,360px)}
