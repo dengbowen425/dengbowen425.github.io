@@ -19,3 +19,30 @@
  #project-dialog .case-art{width:calc(100% - 24px)}
  #project-dialog .case-notes{padding-top:28px;padding-bottom:28px}
 }
+
+/* Original edge colors continue through the sides without enlarging the artwork. */
+#project-dialog .dialog-body{padding-bottom:0}
+#project-dialog .notes-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+#project-dialog .notes-grid h3{font-size:17px;font-weight:650;margin-bottom:10px;color:var(--ink)}
+#project-dialog .notes-grid p{font-size:14px;line-height:1.85;color:var(--muted)}
+#project-dialog .notes-label{border-color:var(--line)}
+#project-dialog .notes-label small{color:var(--muted)}
+#project-dialog .art-label{
+ width:100%;max-width:none;border:0;
+ padding:24px max(32px,calc((100% - 1120px)/2)) 56px;
+ background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 28%,var(--case-opening) 100%);
+ color:var(--muted);
+}
+#project-dialog .case-art{
+ width:100%;max-width:none;background:var(--case-ending);padding-bottom:36px;overflow:hidden;
+}
+#project-dialog .original-board{margin:0;background:transparent}
+#project-dialog .art-row{width:100%;line-height:0}
+#project-dialog .art-frame{width:calc(100% - 64px);max-width:var(--case-reading-width);margin:0 auto}
+@media(max-width:767px){
+ #project-dialog .notes-grid{grid-template-columns:1fr;gap:22px}
+ #project-dialog .case-notes{padding-bottom:18px}
+ #project-dialog .art-label{padding:18px 16px 44px;font-size:9px;letter-spacing:0}
+ #project-dialog .art-frame{width:calc(100% - 24px)}
+ #project-dialog .case-art{padding-bottom:20px}
+}
