@@ -25,15 +25,15 @@
   },
   {
     "project": "recore",
-    "source": "recore-cover-logos.webp",
+    "source": "case-hd-10-replacement-20261015-0.webp",
     "crop": [
-      0.31,
-      0.03,
-      0.69,
-      0.98
+      0,
+      0,
+      1,
+      0.51
     ],
     "display": "full bleed, 3:2",
-    "desktop_bytes": 71498
+    "desktop_bytes": 98492
   },
   {
     "project": "festival",

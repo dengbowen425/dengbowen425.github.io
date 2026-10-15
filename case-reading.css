@@ -7,8 +7,13 @@
 #project-dialog .dialog-header{padding-left:max(32px,calc((100% - 1120px)/2));padding-right:max(32px,calc((100% - 1120px)/2))}
 #project-dialog .case-info{gap:0 7%}
 #project-dialog .case-notes{padding-top:32px;padding-bottom:38px}
-#project-dialog .case-art{--case-reading-width:1120px;width:calc(100% - 64px);max-width:var(--case-reading-width);margin:0 auto}
-#project-dialog .case-art[data-project="recore"]{--case-reading-width:960px}
+#project-dialog .case-art{--case-reading-width:1200px;width:calc(100% - 48px);max-width:var(--case-reading-width);margin:0 auto}
+#project-dialog .case-art[data-project="recore"]{--case-reading-width:1040px}
+#project-dialog .notes-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+#project-dialog .notes-grid h3{font-size:17px;font-weight:650;color:var(--ink)}
+#project-dialog .notes-grid p{font-size:14px;line-height:1.85;color:var(--muted)}
+#project-dialog .notes-label{border-color:var(--line)}
+#project-dialog .notes-label small{color:var(--muted)}
 /* The uploaded low-resolution boards are never enlarged past their actual pixel width. */
 #image-dialog .image-viewport img{width:100%;max-width:min(1600px,var(--original-image-width,1600px));margin-left:auto;margin-right:auto}
 #image-dialog.actual-size .image-viewport img{width:var(--original-image-width,3000px);max-width:none;margin-left:auto;margin-right:auto}
@@ -16,6 +21,7 @@
  #project-dialog .dialog-body{padding-bottom:28px}
  #project-dialog .case-info,#project-dialog .case-notes,#project-dialog .art-label{width:calc(100% - 32px)}
  #project-dialog .dialog-header{padding-left:16px;padding-right:16px}
- #project-dialog .case-art{width:calc(100% - 24px)}
+ #project-dialog .case-art{width:calc(100% - 16px)}
+ #project-dialog .notes-grid{grid-template-columns:1fr;gap:22px}
  #project-dialog .case-notes{padding-top:28px;padding-bottom:28px}
 }
