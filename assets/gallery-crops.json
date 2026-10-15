@@ -25,7 +25,7 @@
   },
   {
     "project": "recore",
-    "source": "case-hd-10-replacement-20261015-0.webp",
+    "source": "case-hd-10-replacement-20261015black-0.webp",
     "crop": [
       0,
       0,
@@ -33,7 +33,7 @@
       0.51
     ],
     "display": "full bleed, 3:2",
-    "desktop_bytes": 98492
+    "desktop_bytes": 101778
   },
   {
     "project": "festival",
