@@ -12,6 +12,18 @@
     "desktop_bytes": 183850
   },
   {
+    "project": "aigc",
+    "source": "case-hd-22-replacement-20261016aigc-3.webp",
+    "crop": [
+      0.075,
+      0.18,
+      0.445,
+      0.78
+    ],
+    "display": "full bleed, 3:2",
+    "desktop_bytes": 78820
+  },
+  {
     "project": "bein-detail",
     "source": "case-hd-18-replacement-0.webp",
     "crop": [
