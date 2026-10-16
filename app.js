@@ -23,7 +23,7 @@ const selected=projects.filter(p=>filter==='all'||p.category===filter);grid.data
 grid.replaceChildren(...selected.map(p=>{
 const button=document.createElement('button');button.className='work-card';button.dataset.id=p.id;button.dataset.project=p.id;button.setAttribute('aria-label',`查看 ${p.name} 项目详情`);
 const preview=p.id;
-const coverRevision=p.id==='aigc'?'20261016aigc':p.id==='recore'?'20261015blackcover':'20261011covers4';
+const coverRevision=p.id==='aigc'?'20261016aigccover2':p.id==='recore'?'20261015blackcover':'20261011covers4';
 button.innerHTML=`<div class="work-visual"><img src="assets/gallery-${preview}-960.webp?v=${coverRevision}" srcset="assets/gallery-${preview}-480.webp?v=${coverRevision} 480w, assets/gallery-${preview}-960.webp?v=${coverRevision} 960w, assets/gallery-${preview}-1600.webp?v=${coverRevision} 1600w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw" decoding="async" alt="${p.name}：${p.id==='recore'?'品牌海报与空间视觉':p.subtitle}" loading="lazy" width="1600" height="1067"><span class="open-chip" aria-hidden="true">＋</span></div><div class="work-caption"><span class="category-label">${p.label}</span><h3>${p.name}</h3><p>${p.subtitle}</p><p class="work-excerpt">${p.description}</p><span class="project-open">展开作品 <span aria-hidden="true">＋</span></span></div>`;return button;
 }));document.querySelector('.work-count').textContent=`${selected.length} 个项目`;revealPortfolioItems(grid);
 }
