@@ -17,15 +17,26 @@ const projectNotes={"bein":{"role":"视觉负责人","scope":"小红书运营视
 let revealObserver=null;
 function revealPortfolioItems(root=document){if(!revealObserver)return;root.querySelectorAll('.work-card,.work-heading,.work-toolbar,.about-image,.about-content,.tools-column,.experience-title,.experience-stop,.contact-section h2,.contact-row').forEach((el,i)=>{if(el.classList.contains('taste-arrived'))return;el.style.setProperty('--reveal-delay',`${Math.min(i%2,1)*90}ms`);el.classList.add('taste-reveal');revealObserver.observe(el);});}
 projects.forEach(p=>{Object.assign(p,projectNotes[p.id]);if(['campaign','recore','medal'].includes(p.id))p.cover=`assets/cover-${p.id}.svg`;});
+// Only the approaching row may download covers; native lazy loading can fetch several screens ahead.
+function loadProjectCover(card){
+ const picture=card.querySelector('.work-picture');if(!picture||picture.dataset.loaded)return;
+ picture.dataset.loaded='true';
+ const source=picture.querySelector('source'),img=picture.querySelector('img');
+ if(source)source.srcset=source.dataset.srcset;
+ img.loading='eager';img.srcset=img.dataset.srcset;img.src=img.dataset.src;
+}
+const coverObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+ for(const entry of entries){if(entry.isIntersecting){loadProjectCover(entry.target);coverObserver.unobserve(entry.target);}}
+},{rootMargin:'240px 0px'}):null;
 const grid=document.querySelector('#work-grid');
 function renderProjects(filter='all'){
-const selected=projects.filter(p=>filter==='all'||p.category===filter);grid.dataset.filter=filter;
+const selected=projects.filter(p=>filter==='all'||p.category===filter);grid.dataset.filter=filter;coverObserver?.disconnect();
 grid.replaceChildren(...selected.map(p=>{
 const button=document.createElement('button');button.className='work-card';button.dataset.id=p.id;button.dataset.project=p.id;button.setAttribute('aria-label',`查看 ${p.name} 项目详情`);
 const preview=p.id;
 const coverRevision=p.id==='aigc'?'20261019giftcover':p.id==='recore'?'20261015blackcover':'20261011covers4';
-button.innerHTML=`<div class="work-visual"><img src="assets/gallery-${preview}-960.webp?v=${coverRevision}" srcset="assets/gallery-${preview}-480.webp?v=${coverRevision} 480w, assets/gallery-${preview}-960.webp?v=${coverRevision} 960w, assets/gallery-${preview}-1600.webp?v=${coverRevision} 1600w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw" decoding="async" alt="${p.name}：${p.id==='recore'?'品牌海报与空间视觉':p.subtitle}" loading="lazy" width="1600" height="1067"><span class="open-chip" aria-hidden="true">＋</span></div><div class="work-caption"><span class="category-label">${p.label}</span><h3>${p.name}</h3><p>${p.subtitle}</p><p class="work-excerpt">${p.description}</p><span class="project-open">展开作品 <span aria-hidden="true">＋</span></span></div>`;return button;
-}));document.querySelector('.work-count').textContent=`${selected.length} 个项目`;revealPortfolioItems(grid);
+button.innerHTML=`<div class="work-visual"><picture class="work-picture"><source type="image/avif" data-srcset="assets/gallery-${preview}-480.avif?v=20261117delivery 480w, assets/gallery-${preview}-960.avif?v=20261117delivery 960w, assets/gallery-${preview}-1600.avif?v=20261117delivery 1600w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw"><img data-src="assets/gallery-${preview}-960.webp?v=${coverRevision}" data-srcset="assets/gallery-${preview}-480.webp?v=${coverRevision} 480w, assets/gallery-${preview}-960.webp?v=${coverRevision} 960w, assets/gallery-${preview}-1600.webp?v=${coverRevision} 1600w" sizes="(max-width:767px) 90vw, (min-width:1600px) 690px, 46vw" decoding="async" alt="${p.name}：${p.id==='recore'?'品牌海报与空间视觉':p.subtitle}" loading="lazy" width="1600" height="1067"></picture><span class="open-chip" aria-hidden="true">＋</span></div><div class="work-caption"><span class="category-label">${p.label}</span><h3>${p.name}</h3><p>${p.subtitle}</p><p class="work-excerpt">${p.description}</p><span class="project-open">展开作品 <span aria-hidden="true">＋</span></span></div>`;return button;
+}));document.querySelector('.work-count').textContent=`${selected.length} 个项目`;revealPortfolioItems(grid);grid.querySelectorAll('.work-card').forEach(card=>coverObserver?coverObserver.observe(card):loadProjectCover(card));
 }
 renderProjects();
 const dialog=document.querySelector('#project-dialog');let currentProject='bein';let opener=null;
@@ -143,12 +154,13 @@ function warmOpeningBoard(id){
  const project=projects.find(p=>p.id===id);if(!project)return;
  const openingPart=boards[project.pages[0]].parts[0];
  const stem=openingPart.src.replace('case-hd-','case-view-').replace('.webp','');
+ if(navigator.connection?.saveData||/^(slow-)?2g$/.test(navigator.connection?.effectiveType||''))return;
  if(warmedBoards.has(stem))return;warmedBoards.add(stem);getBoardPlaceholders(project.pages[0]);
  const sources=caseImageSources(openingPart);const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.type='image/avif';preload.fetchPriority='low';preload.href=sources.fallback;
  preload.imageSrcset=innerWidth>767?sources.desktop:sources.mobile;preload.imageSizes=caseReadingSizes(project);document.head.append(preload);
 }
 let warmTimer=0;
-document.addEventListener('pointerover',event=>{if(event.pointerType==='touch')return;const card=event.target.closest('.work-card[data-project]');if(!card||card.contains(event.relatedTarget))return;clearTimeout(warmTimer);warmTimer=setTimeout(()=>warmOpeningBoard(card.dataset.project),140);});
+document.addEventListener('pointerover',event=>{if(event.pointerType==='touch')return;const card=event.target.closest('.work-card[data-project]');if(!card||card.contains(event.relatedTarget))return;clearTimeout(warmTimer);warmTimer=setTimeout(()=>warmOpeningBoard(card.dataset.project),350);});
 document.addEventListener('pointerout',event=>{const card=event.target.closest('.work-card[data-project]');if(card&&!card.contains(event.relatedTarget))clearTimeout(warmTimer);});
 document.addEventListener('focusin',event=>{const card=event.target.closest('.work-card[data-project]');if(card)warmOpeningBoard(card.dataset.project);});
 document.addEventListener('pointerdown',event=>{const card=event.target.closest('.work-card[data-project]');if(card)warmOpeningBoard(card.dataset.project);},{passive:true});
